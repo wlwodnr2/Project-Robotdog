@@ -8,14 +8,12 @@ from google.cloud.speech import enums
 from google.cloud.speech import types
 import pyaudio
 from six.moves import queue
-#from subprocess import Popen
-
 
 credential_path = "/home/pi/sttfile/1ukbs-d5b756b7353c.json"
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = credential_path #자격증명 한거 
 RATE = 44100 #마이크 주파수 맞춰주기 
 CHUNK = 512  # 100ms
-#filename2 = "restart.py"
+
 #RATE는 샘플링 속도 초당 프레임 수 
 #CHUNK는 프레임 수 
 
