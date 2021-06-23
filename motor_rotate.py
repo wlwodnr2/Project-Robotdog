@@ -1,9 +1,5 @@
 import wiringpi
-import wiringpi as gpio
-import time
-from random import *
 
-i = randint(1,2)
 #초음파 센서 넣어야됨 
 # 모터 상태
 STOP  = 0
@@ -22,24 +18,20 @@ INPUT = 0
 HIGH = 1
 LOW = 0
 
-TRIG = 4
-ECHO = 5
 # 실제 핀 정의
 #PWM PIN
 ENA = 25
 ENB = 30
-#ENA2 = 25
-#ENB2 = 30
 
 #GPIO PIN
 IN1 = 24
 IN2 = 23
 IN3 = 22
 IN4 = 21
-#IN5 = 24
-#IN6 = 23
-#IN7 = 22
-#IN8 = 21
+IN5 = 24
+IN6 = 23
+IN7 = 22
+IN8 = 21
 
 # 핀 설정 함수
 def setPinConfig(EN, INA, INB):
@@ -74,7 +66,7 @@ def setMotor(ch, speed, stat):
         setMotorContorl(ENB, IN3, IN4, speed, stat)
 
 ########################################################
-'''
+
 def setPinConfig2(EN, INA, INB):
     wiringpi.pinMode(EN, OUTPUT)
     wiringpi.pinMode(INA, OUTPUT)
@@ -105,89 +97,26 @@ def setMotor2(ch, speed, stat):
         setMotorContorl(ENA, IN5, IN6, speed, stat)
     else:
         setMotorContorl(ENB, IN7, IN8, speed, stat)
-        '''
 #GPIO 라이브러리 설정
 wiringpi.wiringPiSetup()
 
 #모터 핀 설정
 setPinConfig(ENA, IN1, IN2)
 setPinConfig(ENB, IN3, IN4)
-#setPinConfig2(ENA2, IN5, IN6)
-#setPinConfig2(ENB2, IN7, IN8)
+setPinConfig2(ENA, IN5, IN6)
+setPinConfig2(ENB, IN7, IN8)
 
 #제어 시작
 # 앞으로 150속도로
-setMotor(CH1, 3000, FORWARD)
-setMotor(CH2, 3000, FORWARD)
-#setMotor2(CH1, 3000, FORWARD)
-#setMotor2(CH2, 3000, FORWARD)
-#5초 대기
-wiringpi.delay(3000)
-setMotor(CH1, 1000, STOP)
+setMotor(CH1, 1000, FORWARD)
 setMotor(CH2, 1000, STOP)
-#setMotor2(CH1, 1000, STOP)
-#setMotor2(CH2, 1000, STOP)
-'''
-gpio.wiringPiSetup()
-gpio.pinMode(TRIG, OUTPUT)
-gpio.pinMode(ECHO, INPUT)
+setMotor2(CH1, 1000, FORWARD)
+setMotor2(CH2, 1000, STOP)
+#5초 대기
+wiringpi.delay(1500)
 
-t_end = time.time() + 5
-
-while time.time() < t_end:
-    gpio.digitalWrite(TRIG,LOW)
-    gpio.delayMicroseconds(2)
-    gpio.digitalWrite(TRIG, HIGH)
-    gpio.delayMicroseconds(10)
-    gpio.digitalWrite(TRIG, LOW)
-    
-    while gpio.digitalRead(ECHO) == LOW:
-        startTime = gpio.micros()
-        
-    while gpio.digitalRead(ECHO) == HIGH:
-        endTime = gpio.micros()
-        
-    travelTime = endTime - startTime
-    distance = travelTime / 58.0
-    
-    if distance < 20:
-        print('Distance :', round(distance, 2), 'cm')
-        setMotor(CH1, 1000, STOP)
-        setMotor(CH2, 1000, STOP)
-        setMotor2(CH1, 1000, STOP)
-        setMotor2(CH2, 1000, STOP)
-        break
-        
-    gpio.delay(100);
-
-
-if distance < 20:
-    wiringpi.delay(500)
-    print('Distance :', round(distance, 2), 'cm')
-
-    if i == 1:
-        setMotor(CH1, 3000,STOP)
-        setMotor(CH2, 3000,BACKWORD)
-        setMotor2(CH1, 3000, STOP)
-        setMotor2(CH2, 3000, BACKWORD)
-        wiringpi.delay(1500)
-        setMotor(CH1, 1000, STOP)
-        setMotor(CH2, 1000, STOP)
-        setMotor2(CH1, 1000, STOP)
-        setMotor2(CH2, 1000, STOP)
-    elif i == 2:
-        setMotor(CH1, 3000,BACKWORD)
-        setMotor(CH2, 3000,STOP)
-        setMotor2(CH1, 3000, BACKWORD)
-        setMotor2(CH2, 3000, STOP)
-        wiringpi.delay(1500)
-        setMotor(CH1, 1000, STOP)
-        setMotor(CH2, 1000, STOP)
-        setMotor2(CH1, 1000, STOP)
-        setMotor2(CH2, 1000, STOP)
-#정지
 setMotor(CH1, 1000, STOP)
 setMotor(CH2, 1000, STOP)
 setMotor2(CH1, 1000, STOP)
-setMotor2(CH2, 1000, STOP)'''
+setMotor2(CH2, 1000, STOP)
 
