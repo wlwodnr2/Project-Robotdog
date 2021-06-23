@@ -4,7 +4,7 @@ import time
 from random import *
 
 i = randint(1,2)
-#초음파 센서 넣어야됨 
+
 # 모터 상태
 STOP  = 0
 FORWARD  = 1
@@ -36,10 +36,10 @@ IN1 = 24
 IN2 = 23
 IN3 = 22
 IN4 = 21
-#IN5 = 24
-#IN6 = 23
-#IN7 = 22
-#IN8 = 21
+IN5 = 24
+IN6 = 23
+IN7 = 22
+IN8 = 21
 
 # 핀 설정 함수
 def setPinConfig(EN, INA, INB):
@@ -74,7 +74,7 @@ def setMotor(ch, speed, stat):
         setMotorContorl(ENB, IN3, IN4, speed, stat)
 
 ########################################################
-'''
+
 def setPinConfig2(EN, INA, INB):
     wiringpi.pinMode(EN, OUTPUT)
     wiringpi.pinMode(INA, OUTPUT)
@@ -105,29 +105,30 @@ def setMotor2(ch, speed, stat):
         setMotorContorl(ENA, IN5, IN6, speed, stat)
     else:
         setMotorContorl(ENB, IN7, IN8, speed, stat)
-        '''
+        
 #GPIO 라이브러리 설정
 wiringpi.wiringPiSetup()
 
 #모터 핀 설정
 setPinConfig(ENA, IN1, IN2)
 setPinConfig(ENB, IN3, IN4)
-#setPinConfig2(ENA2, IN5, IN6)
-#setPinConfig2(ENB2, IN7, IN8)
+setPinConfig2(ENA2, IN5, IN6)
+setPinConfig2(ENB2, IN7, IN8)
 
 #제어 시작
 # 앞으로 150속도로
 setMotor(CH1, 3000, FORWARD)
 setMotor(CH2, 3000, FORWARD)
-#setMotor2(CH1, 3000, FORWARD)
-#setMotor2(CH2, 3000, FORWARD)
+setMotor2(CH1, 3000, FORWARD)
+setMotor2(CH2, 3000, FORWARD)
+
 #5초 대기
 wiringpi.delay(3000)
 setMotor(CH1, 1000, STOP)
 setMotor(CH2, 1000, STOP)
-#setMotor2(CH1, 1000, STOP)
-#setMotor2(CH2, 1000, STOP)
-'''
+setMotor2(CH1, 1000, STOP)
+setMotor2(CH2, 1000, STOP)
+
 gpio.wiringPiSetup()
 gpio.pinMode(TRIG, OUTPUT)
 gpio.pinMode(ECHO, INPUT)
